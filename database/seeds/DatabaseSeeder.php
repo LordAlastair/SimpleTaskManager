@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
 
         for($i = 0; $i < 20; $i++){
             Task::create([
-                'name' =>  'Awesome job task ' . $i,
+                'name' =>  'Awesome job task ' . $i+1,
                 'price' =>  $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 8),
                 'deadline' => $faker->dateTimeBetween($startDate = '-1 days', $endDate = '+10 days', $timezone = 'UTC -3'),
                 'done' => $faker->boolean($chanceOfGettingTrue = 75),
-                'presentation_order' => $i
+                'presentation_order' => $i +1
             ]);
         }
     }
