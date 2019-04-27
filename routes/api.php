@@ -17,6 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found...'], 404);
+});
+
 Route::get('tasks', 'TaskController@getAll');
 Route::get('tasks/{task}', 'TaskController@getById');
 Route::post('tasks', 'TaskController@store');

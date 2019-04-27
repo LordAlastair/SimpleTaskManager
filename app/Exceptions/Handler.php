@@ -59,6 +59,11 @@ class Handler extends ExceptionHandler
         }
     
         $response = [];
+
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => 'Entry for '.str_replace('App\\', '', $exception->getModel()).' not found'], 404);
+        }
     
         $statusCode = 500;
         if (method_exists($exception, 'getStatusCode')) {
