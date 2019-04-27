@@ -8,7 +8,8 @@ use App\Task;
 class TaskController extends Controller
 {
   public function getAll(){
-    return Task::all();
+    $task = Task::orderby('presentation_order','asc')->get()->toArray();
+    return $task;
   }
 
   public function getById(Task $task){
@@ -18,19 +19,19 @@ class TaskController extends Controller
   public function store (Request $request){
     $task = Task::create($request->all());
 
-    return response()->json($article, 201);
+    return response()->json($request, 201);
   }
 
-  public function update(Request $request, Task $task){
-    $task->update($request->all());
+  public function update(Task $task){
+    $task->update($task->all());
 
-    return response()->json($article, 200);
+    return response()->json($task, 200);
   }
 
   public function delete(Task $task)
   {
       $task->delete();
 
-      return response()->json(null, 204);
+      return response()->json(null, 200);
   }
 }
