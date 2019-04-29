@@ -11,19 +11,21 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::fallback(function(){
+/**
+ * Fallback router for not found pages, error 404.
+ */
+Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found...'], 404);
 });
 
-Route::get('tasks', 'TaskController@getAll');
-Route::get('tasks/{task}', 'TaskController@getById');
-Route::post('tasks', 'TaskController@store');
-Route::put('tasks/{task}', 'TaskController@update');
-Route::delete('tasks/{task}', 'TaskController@delete');
+/**
+ * Resource routes for task controller API.
+ */
+Route::resource('tasks', 'API\TaskController');
